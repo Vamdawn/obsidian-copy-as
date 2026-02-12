@@ -1,0 +1,10 @@
+{
+	"id": "copy-as",
+	"name": "Copy As",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Copy content as different formats in Obsidian",
+	"author": "Chen H",
+	"authorUrl": "",
+	"isDesktopOnly": false
+}
