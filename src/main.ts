@@ -5,7 +5,7 @@ export default class CopyAsPlugin extends Plugin {
 		// TODO: implement plugin
 	}
 
-	async onunload() {
+	onunload() {
 		// cleanup
 	}
 }
