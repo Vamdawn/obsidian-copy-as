@@ -11,8 +11,10 @@ export async function copyAsHtml(app: App): Promise<void> {
 
 	const markdown = await app.vault.read(file);
 	const container = document.body.createDiv();
-	container.style.position = "absolute";
-	container.style.left = "-9999px";
+	container.setCssProps({
+		position: "absolute",
+		left: "-9999px",
+	});
 
 	const component = new Component();
 	component.load();
