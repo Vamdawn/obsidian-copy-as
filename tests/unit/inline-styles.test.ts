@@ -1,6 +1,6 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
-import { inlineStyles } from "./inline-styles";
+import { inlineStyles } from "../../src/inline-styles";
 
 function mockGetComputedStyle(
 	styleMap: Map<HTMLElement, Record<string, string>>,
@@ -12,10 +12,6 @@ function mockGetComputedStyle(
 		} as CSSStyleDeclaration;
 	});
 }
-
-afterEach(() => {
-	vi.restoreAllMocks();
-});
 
 describe("inlineStyles", () => {
 	describe("single element", () => {
