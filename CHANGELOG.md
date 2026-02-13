@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-02-13
+
+### Added
+- ✨ Add SVG-to-PNG conversion module for embedding images in copied HTML
+- ✨ Integrate SVG-to-PNG conversion into HTML copy pipeline
+- ✨ Skip Obsidian decorative icon SVGs during PNG conversion
+
+### Fixed
+- 🐛 Include tests in tsconfig for ESLint project service
+
 ## [1.0.0] - 2026-02-13
 
 ### Added

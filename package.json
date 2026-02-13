@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-copy-as",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Copy content as different formats in Obsidian",
 	"main": "main.js",
 	"type": "module",
