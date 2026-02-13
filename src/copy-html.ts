@@ -1,6 +1,7 @@
 import { App, Component, MarkdownRenderer, Notice } from "obsidian";
 
 import { inlineStyles } from "./inline-styles";
+import { convertSvgsToImages } from "./svg-to-png";
 
 export async function copyAsHtml(app: App): Promise<void> {
 	const file = app.workspace.getActiveFile();
@@ -29,6 +30,7 @@ export async function copyAsHtml(app: App): Promise<void> {
 			component,
 		);
 
+		await convertSvgsToImages(container);
 		inlineStyles(container);
 
 		const html = container.innerHTML;
