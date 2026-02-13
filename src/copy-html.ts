@@ -10,6 +10,7 @@ export async function copyAsHtml(app: App): Promise<void> {
 	}
 
 	const markdown = await app.vault.read(file);
+	const body = markdown.replace(/^---\n[\s\S]*?\n---\n?/, "");
 	const container = document.body.createDiv();
 	container.setCssProps({
 		position: "absolute",
@@ -22,7 +23,7 @@ export async function copyAsHtml(app: App): Promise<void> {
 	try {
 		await MarkdownRenderer.render(
 			app,
-			markdown,
+			body,
 			container,
 			file.path,
 			component,
