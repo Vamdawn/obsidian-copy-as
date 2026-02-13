@@ -1,7 +1,9 @@
 export async function convertSvgsToImages(
 	container: HTMLElement,
 ): Promise<void> {
-	const svgs = Array.from(container.querySelectorAll("svg"));
+	const svgs = Array.from(container.querySelectorAll("svg")).filter(
+		(svg) => !isIconSvg(svg),
+	);
 
 	for (const svg of svgs) {
 		const img = await svgToImg(svg);
@@ -9,6 +11,12 @@ export async function convertSvgsToImages(
 			svg.replaceWith(img);
 		}
 	}
+}
+
+function isIconSvg(svg: SVGSVGElement): boolean {
+	if (svg.closest(".callout-icon")) return true;
+	if (svg.classList.contains("svg-icon")) return true;
+	return false;
 }
 
 function getSvgDimension(svg: SVGSVGElement, attr: "width" | "height"): number {

@@ -134,6 +134,97 @@ describe("convertSvgsToImages", () => {
 		expect(container.querySelectorAll("svg").length).toBe(0);
 	});
 
+	it("skips SVG inside .callout-icon", async () => {
+		const container = document.createElementNS(
+			"http://www.w3.org/1999/xhtml",
+			"div",
+		);
+		const calloutIcon = document.createElementNS(
+			"http://www.w3.org/1999/xhtml",
+			"div",
+		);
+		calloutIcon.classList.add("callout-icon");
+		const svg = document.createElementNS(
+			"http://www.w3.org/2000/svg",
+			"svg",
+		);
+		svg.setAttribute("width", "24");
+		svg.setAttribute("height", "24");
+		calloutIcon.appendChild(svg);
+		container.appendChild(calloutIcon);
+
+		// Mock Image/Canvas so conversion would succeed if not filtered
+		createMockCanvas("data:image/png;base64,fakePngData");
+		const mockImage = {
+			set src(val: string) {
+				this._src = val;
+				setTimeout(() => this.onload?.(), 0);
+			},
+			get src() {
+				return this._src;
+			},
+			_src: "",
+			onload: null as (() => void) | null,
+			onerror: null as ((e: unknown) => void) | null,
+			width: 24,
+			height: 24,
+		};
+		vi.stubGlobal(
+			"Image",
+			vi.fn().mockImplementation(function () {
+				return mockImage;
+			}),
+		);
+
+		await convertSvgsToImages(container);
+
+		expect(container.querySelector("svg")).not.toBeNull();
+		expect(container.querySelector("img")).toBeNull();
+	});
+
+	it("skips SVG with svg-icon class", async () => {
+		const container = document.createElementNS(
+			"http://www.w3.org/1999/xhtml",
+			"div",
+		);
+		const svg = document.createElementNS(
+			"http://www.w3.org/2000/svg",
+			"svg",
+		);
+		svg.setAttribute("width", "24");
+		svg.setAttribute("height", "24");
+		svg.classList.add("svg-icon");
+		container.appendChild(svg);
+
+		// Mock Image/Canvas so conversion would succeed if not filtered
+		createMockCanvas("data:image/png;base64,fakePngData");
+		const mockImage = {
+			set src(val: string) {
+				this._src = val;
+				setTimeout(() => this.onload?.(), 0);
+			},
+			get src() {
+				return this._src;
+			},
+			_src: "",
+			onload: null as (() => void) | null,
+			onerror: null as ((e: unknown) => void) | null,
+			width: 24,
+			height: 24,
+		};
+		vi.stubGlobal(
+			"Image",
+			vi.fn().mockImplementation(function () {
+				return mockImage;
+			}),
+		);
+
+		await convertSvgsToImages(container);
+
+		expect(container.querySelector("svg")).not.toBeNull();
+		expect(container.querySelector("img")).toBeNull();
+	});
+
 	it("skips SVG if Image fails to load", async () => {
 		const container = document.createElementNS(
 			"http://www.w3.org/1999/xhtml",
